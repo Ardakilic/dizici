@@ -19,12 +19,14 @@ use Symfony\Component\Console\Application;
 
 use App\Commands\MigrateCommand;
 use App\Commands\SyncSeriesCommand;
+use App\Commands\ShowEpisodesCommand;
 
 $application = new Application("Fetcher", APP_VERSION);
 
 //Custom commands
 $application->add(new MigrateCommand());
 $application->add(new SyncSeriesCommand());
+$application->add(new ShowEpisodesCommand());
 
 //Run it
 $application->run();

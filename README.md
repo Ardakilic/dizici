@@ -66,12 +66,13 @@ composer install
 * Fill the credentials in `config.php` accordingly
 * Install database tables:
 ```shell
-php series migrate:tables
+php dizici migrate:tables
 ```
 * Now sync all the series and episodes:
 ```shell
-php series sync:series
+php dizici sync:series
 ```
+* Optionally, add the command to your crontab to automatically sync in a period you've set.
 * Enjoy! :smile:
 
 
@@ -82,35 +83,71 @@ This is quite easy, I'll try to explain in some simple steps:
 * Navigate to [http://www.tvmaze.com/](http://www.tvmaze.com/), and search for a TV show
 * Search for a TV show, let's search Star Trek, there are various results, I'll post some of them here:
 ![](https://i.imgur.com/hLt9dtQ.png)
-* The links are like these: http://www.tvmaze.com/shows/**490**/star-trek, http://www.tvmaze.com/shows/**491**/star-trek-the-next-generation http://www.tvmaze.com/shows/**492**/star-trek-voyager, 
+* The links are like these: http://www.tvmaze.com/shows/ **490** /star-trek, http://www.tvmaze.com/shows/ **491** /star-trek-the-next-generation http://www.tvmaze.com/shows/ **492** /star-trek-voyager, 
 * As you've realized, we need the TVMaze IDs of these shows, which are **490**, **491** and **492** (and so on).
 * Just add these numbers in `series` key in `config.php`
 
 ##Listing TV shows as unified
-For now, you'll need to run a raw SQL query, since there's no "show group" feature implemented yet.
-Example query that lists and provides a watch order for Doctor Who and Torchwood in MySQL:
+There's a cli way to show and export this feature.
+
+First, make sure you're synced,
+
+Then run this command:
+
+```shell
+php dizici show:episodes TVMazeShowID1 TVMazeShowID2..
+```
+
+You'll get an output like this:
+
+![](https://i.imgur.com/zQa4IxQ.png)
+
+If you want to export this, you can do this the shell way:
+
+```shell
+php dizici show:episodes TVMazeShowID1 TVMazeShowID2 > output.txt
+```
+
+and print output.txt etc.
+
+Additionally, you can always run raw SQL queries, Not all the fields (such as image etc.) are shown in the table yet, and this may be one of the ways to implement it.
+
+Example query that lists and provides a watch order for Doctor Who and Torchwood in MySQL (and derivatives):
 
 ```sql
 SELECT * FROM `episodes` WHERE serie_id_external IN (210, 659) ORDER BY airdate ASC
 ```
-You will get a result like [this image](http://imgur.com/nW2rn5Z). This will include a unified view of multiple TV shows including special editions, episode names and numbers, summaries, cover photos, episode URLs and air dates (in short, whatever resource TVMaze provides). 
 
-In the near future, a cli output will be implemented.
+(Again: 210 and 659 are TVMaze IDs which I've described how to get them earlier)
+
+You will get a result like [this image](https://imgur.com/nW2rn5Z). This will include a unified view of multiple TV shows including special editions, episode names and numbers, summaries, cover photos, episode URLs and air dates (in short, whatever resource TVMaze provides and the application saves). 
 
 ##Screenshot(s)
 
 This is a sample screenshot from console when you run the sync command:
 
-![imgur](http://i.imgur.com/pKf7Uvd.png)
+![imgur](https://i.imgur.com/8nNjHSX.png)
 
 Many of the other images are provided earlier of this readme.
 
 ##TODOs
 * Grouping feature to bundle multiple TV shows
-* [Tables](http://symfony.com/doc/current/components/console/helpers/table.html) in console output
+* ~[Tables](http://symfony.com/doc/current/components/console/helpers/table.html) in console output~
 * Provide an output format
 * New columns for marking such as "watched", "collected" etc.
 * Please feel free to provide issues and pull requests. I'll gladly consider them.
+
+
+##Version History
+
+###Version 0.2.0
+
+* Cli app renamed to `dizici` from `series`
+* Cli table output implemented
+
+###Version 0.1.0
+
+* First release
 
 ##License
 MIT License
