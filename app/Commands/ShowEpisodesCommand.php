@@ -74,15 +74,13 @@ class ShowEpisodesCommand extends Command
             ->get()
             ->toArray();
 
-        $rows = array_map(function($val) {
-            return array_values($val);
-        }, $episodes);
+        $rows = array_map('array_values', $episodes);
 
         $table = new Table($output);
         $table
             ->setHeaders(array('Episode ID', 'Show', 'Title', 'Season', 'Episode', 'Is Special?', 'URL'))
-            ->setRows($rows)
-        ;
+            ->setRows($rows);
+
         $table->render();
 
     }
