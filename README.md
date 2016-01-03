@@ -87,7 +87,7 @@ This is quite easy, I'll try to explain in some simple steps:
 * Just add these numbers in `series` key in `config.php`
 
 ##Listing TV shows as unified
-For now, you'll need to run a raw SQL query, since there's no "show group" feature implemented.
+For now, you'll need to run a raw SQL query, since there's no "show group" feature implemented yet.
 Example query that lists and provides a watch order for Doctor Who and Torchwood in MySQL:
 
 ```sql
@@ -95,14 +95,19 @@ SELECT * FROM `episodes` WHERE serie_id_external IN (210, 659) ORDER BY airdate 
 ```
 You will get a result like [this image](http://imgur.com/nW2rn5Z). This will include a unified view of multiple TV shows including special editions, episode names and numbers, summaries, cover photos, episode URLs and air dates (in short, whatever resource TVMaze provides). 
 
+In the near future, a cli output will be implemented.
+
 ##Screenshot(s)
 
 This is a sample screenshot from console when you run the sync command:
+
 ![imgur](http://i.imgur.com/pKf7Uvd.png)
+
 Many of the other images are provided earlier of this readme.
 
 ##TODOs
 * Grouping feature to bundle multiple TV shows
+* [Tables](http://symfony.com/doc/current/components/console/helpers/table.html) in console output
 * Provide an output format
 * New columns for marking such as "watched", "collected" etc.
 * Please feel free to provide issues and pull requests. I'll gladly consider them.
