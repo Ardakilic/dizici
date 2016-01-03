@@ -1,0 +1,39 @@
+{
+  "name": "Ardakilic/series-app",
+  "description": "A minimal series-cli app that syncs series and episodes from TVMaze to a database aimed to make a unified sort",
+  "type": "project",
+  "keywords": [
+    "ardakilic",
+    "arda",
+    "kilicdagi",
+    "tvmaze",
+    "series"
+  ],
+  "homepage": "https://arda.pw/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Arda Kilicdagi",
+      "email": "arda@kilicdagi.com"
+    }
+  ],
+  "require": {
+    "guzzlehttp/guzzle": "^6.1",
+    "illuminate/database": "^5.2",
+    "symfony/console": "^3.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    }
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "php -r \"copy('config.sample.php', 'config.php');\""
+    ]
+  },
+  "suggest": {
+    "doctrine/dbal": "Required to rename columns and drop SQLite columns (~2.4).",
+    "fzaninotto/faker": "Required to use the eloquent factory builder (~1.4)."
+  }
+}
