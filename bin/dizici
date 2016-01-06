@@ -13,7 +13,7 @@
  * @license     http://opensource.org/licenses/MIT - MIT License
  */
 
-require_once __DIR__ . '/bootstrap.php';
+require_once __DIR__ . '/../bootstrap.php';
 
 use Symfony\Component\Console\Application;
 

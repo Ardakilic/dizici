@@ -1,0 +1,23 @@
+#
+# Dizici
+# https://github.com/Ardakilic/dizici
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+#
+# @link        https://github.com/Ardakilic/dizici
+# @copyright   2016 Arda Kilicdagi. (https://arda.pw/)
+# @license     http://opensource.org/licenses/MIT - MIT License
+#
+
+timezone: Europe/Istanbul
+connection:
+  driver: sqlite
+  database: dizici.sqlite
+  prefix: ''
+
+#TODO these will be added to database
+series: [210, 659, 204, 206, 207, 111]
+
+# 210, 659: Doctor Who + Torchwood
+# 206, 207, 211: Stargate SG-1, Stargate Atlantis, Stargate Universe

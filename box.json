@@ -1,0 +1,17 @@
+{
+  "files": [
+    "bootstrap.php",
+    "config.sample.yml",
+    "install.php",
+    "LICENSE",
+    "README.md"
+  ],
+  "directories": [
+    "app",
+    "bin",
+    "vendor"
+  ],
+  "stub": true,
+  "main": "bin/dizici",
+  "output": "dist/dizici.phar"
+}

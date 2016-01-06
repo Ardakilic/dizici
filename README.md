@@ -1,5 +1,5 @@
 ```
-  ____  _     _      _ 
+  ____  _     _      _
  |  _ \(_)___(_) ___(_)
  | | | | |_  / |/ __| |
  | |_| | |/ /| | (__| |
@@ -62,19 +62,39 @@ git clone https://github.com/Ardakilic/dizici.git
 cd dizici
 composer install
 ```
-* If not generated automatically, copy ``config.sample.php` to `config.php`
-* Fill the credentials in `config.php` accordingly
-* Install database tables:
+* After first installation, a hidden folder called `.dizici` will be created inside your home folder. We'll refer to it as `$HOME/.dizici/` in this readme file.
+* Fill the credentials in `config.yml` accordingly. Example connection credentials are stored in [this file in Laravel](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php). E.g: If you want to use MySQL instead, fill the connection key with [these keys and according values](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php#L56-L64).
+* Create the tables on your database:
 ```shell
-php dizici migrate:tables
+php bin/dizici migrate:tables
 ```
-* Now sync all the series and episodes:
+* Now sync all the series and episodes, some example TV shows are already added in configuration file:
 ```shell
-php dizici sync:series
+php bin/dizici sync:series
 ```
 * Optionally, add the command to your crontab to automatically sync in a period you've set.
 * Enjoy! :smile:
 
+##Bulding the Binary
+
+There should already be a `dist/dizici.phar` file available in the repository, but for some purposes, you may want to create the .phar file on your own.
+
+With a very little and simple steps you can create a single `dizici.phar` file.
+
+* [Download and/or install the Box2](https://github.com/box-project/box2#as-a-phar-recommended)
+* cd into the dizici's directory
+* Make sure you've installed dependencies with `composer install`
+* Run `php box.phar build`
+* You'll have a `dist/dizici.phar` created upon seconds.
+
+##Install Dizici Globally
+
+* [First, gain the binary](#building-the-binary). You can download or build yourself.
+* Move `dizici.phar` to one of your ENV paths. Example:
+```shell
+sudo mv dizici.phar /usr/local/bin/dizici
+```
+* Finally, you can run `dizici` from anywhere in your terminal.
 
 ##Adding new TV Shows
 
@@ -83,19 +103,23 @@ This is quite easy, I'll try to explain in some simple steps:
 * Navigate to [http://www.tvmaze.com/](http://www.tvmaze.com/), and search for a TV show
 * Search for a TV show, let's search Star Trek, there are various results, I'll post some of them here:
 ![](https://i.imgur.com/hLt9dtQ.png)
-* The links are like these: http://www.tvmaze.com/shows/ **490** /star-trek, http://www.tvmaze.com/shows/ **491** /star-trek-the-next-generation http://www.tvmaze.com/shows/ **492** /star-trek-voyager, 
+* The links are like these: http://www.tvmaze.com/shows/ **490** /star-trek, http://www.tvmaze.com/shows/ **491** /star-trek-the-next-generation http://www.tvmaze.com/shows/ **492** /star-trek-voyager,
 * As you've realized, we need the TVMaze IDs of these shows, which are **490**, **491** and **492** (and so on).
-* Just add these numbers in `series` key in `config.php`
+* Just add these numbers in `series` key in `config.yml` which can be found under `$HOME/.dizici/` directory.
 
 ##Listing TV shows as unified
 There's a cli way to show and export this feature.
 
 First, make sure you're synced,
 
+```shell
+php bin/dizici sync:series
+```
+
 Then run this command:
 
 ```shell
-php dizici show:episodes TVMazeShowID1 TVMazeShowID2..
+php bin/dizici show:episodes TVMazeShowID1 TVMazeShowID2..
 ```
 
 You'll get an output like this:
@@ -120,7 +144,7 @@ SELECT * FROM `episodes` WHERE serie_id_external IN (210, 659) ORDER BY airdate 
 
 (Again: 210 and 659 are TVMaze IDs which I've described how to get them earlier)
 
-You will get a result like [this image](https://imgur.com/nW2rn5Z). This will include a unified view of multiple TV shows including special editions, episode names and numbers, summaries, cover photos, episode URLs and air dates (in short, whatever resource TVMaze provides and the application saves). 
+You will get a result like [this image](https://imgur.com/nW2rn5Z). This will include a unified view of multiple TV shows including special editions, episode names and numbers, summaries, cover photos, episode URLs and air dates (in short, whatever resource TVMaze provides and the application saves).
 
 ##Screenshot(s)
 
@@ -132,13 +156,23 @@ Many of the other images are provided earlier of this readme.
 
 ##TODOs
 * Grouping feature to bundle multiple TV shows
-* ~[Tables](http://symfony.com/doc/current/components/console/helpers/table.html) in console output~
+* Storing all TVMaze IDs in database instead of config file
+* ~~[Tables](http://symfony.com/doc/current/components/console/helpers/table.html) in console output~~
 * Provide an output format
 * New columns for marking such as "watched", "collected" etc.
 * Please feel free to provide issues and pull requests. I'll gladly consider them.
 
 
 ##Version History
+
+###Version 1.0.0
+
+This release aims to make Dizici as portable as possible.
+
+* SQLite is now the default connection
+* Configuration file is now [YAML](http://www.yaml.org/). The `.yml` file is parsed using [Symfony Yaml Component](http://symfony.com/doc/current/components/yaml/introduction.html)
+* Standalone .phar arcive created, using [Box-project's Box2](http://box-project.github.io/box2/)
+* Configuration path is now `$HOME/.dizici/` . This way, the app's aimed to be one single archive, and more portable
 
 ###Version 0.2.0
 
