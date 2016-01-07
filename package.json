@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/Ardakilic/dizici/issues"
   },
-  "homepage": "https://github.com/Ardakilic/dizici#readme"
+  "homepage": "https://github.com/Ardakilic/dizici#readme",
+  "bin": {
+    "dizici": "./dist/dizici.phar"
+  }
 }
