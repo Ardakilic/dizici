@@ -51,7 +51,15 @@ This simple PHP cli tool aims to be a solution for this issue.
 * Cron if you'd like to sync episodes automatically
 * Recent version of cURL must be installed
 
-##Installation
+##Installation (From Dist)
+
+There are couple of ways to get the dist .phar file
+
+* You can get the latest stable version from [GitHub Releases page](https://github.com/Ardakilic/dizici/releases)
+* You can get it from [NPM](https://www.npmjs.com/package/dizici)
+* Or you can get the bleeding edge dist version by cloning this repository, there'll be a `dist/dizici.phar` file available for you.
+
+##Installation (From Source)
 
 * Clone the repository:
 ```shell
@@ -62,7 +70,7 @@ git clone https://github.com/Ardakilic/dizici.git
 cd dizici
 composer install
 ```
-* After first installation, a hidden folder called `.dizici` will be created inside your home folder. We'll refer to it as `$HOME/.dizici/` in this readme file.
+* After first installation, a hidden folder called `.dizici` will be created inside your home folder. This folder is where the application stores configuration and database (if set as SQLite). We'll refer to it as `$HOME/.dizici/` in this readme file.
 * Fill the credentials in `config.yml` accordingly. Example connection credentials are stored in [this file in Laravel](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php). E.g: If you want to use MySQL instead, fill the connection key with [these keys and according values](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php#L56-L64).
 * Create the tables on your database:
 ```shell
@@ -79,7 +87,7 @@ php bin/dizici sync:series
 
 There should already be a `dist/dizici.phar` file available in the repository, but for some purposes, you may want to create the .phar file on your own.
 
-With a very little and simple steps you can create a single `dizici.phar` file.
+With a very little and simple steps you can creeate `dizici.phar` file yourself.
 
 * [Download and/or install the Box2](https://github.com/box-project/box2#as-a-phar-recommended)
 * cd into the dizici's directory
@@ -89,7 +97,7 @@ With a very little and simple steps you can create a single `dizici.phar` file.
 
 ##Install Dizici Globally
 
-* [First, gain the binary](#building-the-binary). You can download or build yourself.
+* First, either download the dist version or [build the binary](#building-the-binary). You can download or build yourself.
 * Move `dizici.phar` to one of your ENV paths. Example:
 ```shell
 sudo mv dizici.phar /usr/local/bin/dizici
@@ -158,12 +166,16 @@ Many of the other images are provided earlier of this readme.
 * Grouping feature to bundle multiple TV shows
 * Storing all TVMaze IDs in database instead of config file
 * ~~[Tables](http://symfony.com/doc/current/components/console/helpers/table.html) in console output~~
-* Provide an output format
+* Provide output such as HTML, tsv etc. in addition to text
 * New columns for marking such as "watched", "collected" etc.
 * Please feel free to provide issues and pull requests. I'll gladly consider them.
 
 
 ##Version History
+
+###Version 1.0.1
+
+* NPM submission for easier installation
 
 ###Version 1.0.0
 
