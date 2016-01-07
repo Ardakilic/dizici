@@ -1,0 +1,23 @@
+{
+  "name": "dizici",
+  "version": "1.0.0",
+  "description": "A minimal series-cli app that syncs series and episodes from TVMaze to a database aimed to make a unified sort",
+  "main": "dist/dizici.phar",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ardakilic/dizici.git"
+  },
+  "keywords": [
+    "dizici",
+    "TVMaze",
+    "TV",
+    "episode",
+    "cli"
+  ],
+  "author": "Arda Kilicdagi",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Ardakilic/dizici/issues"
+  },
+  "homepage": "https://github.com/Ardakilic/dizici#readme"
+}

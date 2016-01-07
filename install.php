@@ -27,7 +27,7 @@ mkdir($folder, 0775);
 copy(__DIR__ . '/config.sample.yml', $folder . 'config.yml');
 
 //Create a blank .sqlite Database
-touch($folder . '/dizici.sqlite');
+touch($folder . 'dizici.sqlite');
 
 
 //Taken from PHP.net/rmdir

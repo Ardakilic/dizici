@@ -75,7 +75,7 @@ php bin/dizici sync:series
 * Optionally, add the command to your crontab to automatically sync in a period you've set.
 * Enjoy! :smile:
 
-##Bulding the Binary
+##Building the Binary
 
 There should already be a `dist/dizici.phar` file available in the repository, but for some purposes, you may want to create the .phar file on your own.
 
