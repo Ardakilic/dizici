@@ -54,9 +54,12 @@ This simple PHP cli tool aims to be a solution for this issue.
 ##Installation (From Dist)
 
 There are couple of ways to get the dist .phar file
-
-* You can get the latest stable version from [GitHub Releases page](https://github.com/Ardakilic/dizici/releases)
-* You can get it from [NPM](https://www.npmjs.com/package/dizici)
+* The easiest way is to get it from [NPM](https://www.npmjs.com/package/dizici):
+```shell
+npm install -g dizici
+```
+And it's installed.
+* You can also manually download the latest stable version from [GitHub Releases page](https://github.com/Ardakilic/dizici/releases)
 * Or you can get the bleeding edge dist version by cloning this repository, there'll be a `dist/dizici.phar` file available for you.
 
 ##Installation (From Source)
@@ -96,6 +99,14 @@ With a very little and simple steps you can creeate `dizici.phar` file yourself.
 * You'll have a `dist/dizici.phar` created upon seconds.
 
 ##Install Dizici Globally
+
+###You can do this easily with NPM:
+
+`npm install -g dizici`
+
+And it's installed :)
+
+###You can also download the .phar arcive and do this manually
 
 * First, either download the dist version or [build the binary](#building-the-binary). You can download or build yourself.
 * Move `dizici.phar` to one of your ENV paths. Example:
