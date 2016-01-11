@@ -62,7 +62,7 @@ npm install -g dizici
 or [Composer](https://getcomposer.org):
 
 ```shell
-composer global require Ardakilic/dizici
+composer global require ardakilic/dizici
 ```
 
 And it's installed.
@@ -116,7 +116,7 @@ npm install -g dizici
 or via Composer:
 
 ```shell
-composer global require Ardakilic/dizici
+composer global require ardakilic/dizici
 ```
 
 And it's installed :)

@@ -1,5 +1,5 @@
 {
-  "name": "Ardakilic/dizici",
+  "name": "ardakilic/dizici",
   "description": "A minimal series-cli app that syncs series and episodes from TVMaze to a database aimed to make a unified sort",
   "type": "project",
   "keywords": [
