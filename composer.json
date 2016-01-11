@@ -18,6 +18,7 @@
     }
   ],
   "require": {
+    "php": ">=5.5.9",
     "guzzlehttp/guzzle": "^6.1",
     "illuminate/database": "^5.2",
     "symfony/console": "^3.0",
@@ -28,6 +29,9 @@
       "App\\": "app/"
     }
   },
+  "bin": [
+    "bin/dizici"
+  ],
   "scripts": {
     "post-install-cmd": [
       "php install.php"

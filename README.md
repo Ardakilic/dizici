@@ -58,6 +58,13 @@ There are couple of ways to get the dist .phar file
 ```shell
 npm install -g dizici
 ```
+
+or [Composer](https://getcomposer.org):
+
+```shell
+composer global require Ardakilic/dizici
+```
+
 And it's installed.
 * You can also manually download the latest stable version from [GitHub Releases page](https://github.com/Ardakilic/dizici/releases)
 * Or you can get the bleeding edge dist version by cloning this repository, there'll be a `dist/dizici.phar` file available for you.
@@ -102,7 +109,15 @@ With a very little and simple steps you can creeate `dizici.phar` file yourself.
 
 ###You can do this easily with NPM:
 
-`npm install -g dizici`
+```shell
+npm install -g dizici
+```
+
+or via Composer:
+
+```shell
+composer global require Ardakilic/dizici
+```
 
 And it's installed :)
 
