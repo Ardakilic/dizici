@@ -126,7 +126,7 @@ Repeat this step for each TV show you'd like to add to a Watchlist Group.
 
 * Now sync all the series and episodes, some example TV shows are already added in configuration file:
 ```shell
-php bin/dizici sync:series
+php bin/dizici sync
 ```
 * Optionally, add the command to your crontab to automatically sync in a period you've set.
 * Enjoy! :smile:
@@ -175,19 +175,19 @@ There's a cli way to show and export this feature.
 First, make sure you're synced,
 
 ```shell
-php dizici sync:series
+php dizici sync
 ```
 
 Then run this command:
 
 ```shell
-php dizici list Stargate
+php dizici episodes Stargate
 ```
 
 or with quotes if it contains multiple words:
 
 ```shell
-php dizici list "Stargate List"
+php dizici episodes "Stargate List"
 ```
 
 You'll get an output like this:
@@ -197,7 +197,7 @@ You'll get an output like this:
 If you want to export this, you can do this the shell way:
 
 ```shell
-php dizici list "Stargate List" > output.txt
+php dizici episodes "Stargate List" > output.txt
 ```
 
 and print `output.txt` etc.

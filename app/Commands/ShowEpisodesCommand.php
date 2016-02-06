@@ -37,7 +37,7 @@ class ShowEpisodesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('list')
+            ->setName('episodes')
             ->setDescription('Show the episodes list of provided TVMaze show IDs')
             ->addArgument(
                 'group',

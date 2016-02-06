@@ -70,6 +70,7 @@ class MigrateCommand extends Command
     private function createSeriesTable()
     {
         Capsule::schema()->create('series', function (Blueprint $table) {
+
             $table->increments('id');
             $table->integer('external_id')->unsigned()->unique()->index(); //the ID on TVMaze
 
@@ -78,6 +79,7 @@ class MigrateCommand extends Command
             $table->string('image', 400)->nullable();
 
             $table->datetime('premiered');
+
         });
     }
 
@@ -87,6 +89,7 @@ class MigrateCommand extends Command
     private function createEpisodesTable()
     {
         Capsule::schema()->create('episodes', function (Blueprint $table) {
+
             $table->increments('id');
             $table->integer('external_id')->unsigned()->unique()->index();
 
@@ -105,6 +108,7 @@ class MigrateCommand extends Command
             $table->string('image', 400)->nullable();
 
             $table->datetime('airdate');
+
         });
     }
 
@@ -114,17 +118,21 @@ class MigrateCommand extends Command
     private function createWatchlistGroupsTable()
     {
         Capsule::schema()->create('watchlist_groups', function (Blueprint $table) {
+
             $table->increments('id');
             $table->string('title');
+
         });
     }
 
     private function createWatchListTable()
     {
         Capsule::schema()->create('watchlists', function (Blueprint $table) {
+
             $table->increments('id');
             $table->integer('watchlist_group_id')->unsigned()->index();
             $table->integer('tvmaze_id')->unsigned()->index();
+
         });
     }
 

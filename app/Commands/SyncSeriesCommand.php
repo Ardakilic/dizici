@@ -56,7 +56,7 @@ class SyncSeriesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('sync:series')
+            ->setName('sync')
             ->setDescription('Gets all the series from the config file, and syncs to the database accordingly');
     }
 
@@ -95,7 +95,7 @@ class SyncSeriesCommand extends Command
     private function syncSeries(InputInterface $input, OutputInterface $output)
     {
 
-
+        //lists() method is deprecated, so we use pluck() instead.
         $allSeries = Watchlist::all()->pluck('tvmaze_id')->toArray();
         $currentSeries = Serie::all()->pluck('external_id')->toArray();
         $seriesToCreate = array_values(array_diff($allSeries, $currentSeries));
@@ -113,7 +113,7 @@ class SyncSeriesCommand extends Command
             }
             $data = json_decode($response->getBody()->getContents(), true);
 
-            //Now let's create the serie!
+            //Now let's create the TV show!
             $serie = new Serie;
             $serie->title = $data['name'];
             $serie->external_id = $data['id'];
@@ -139,11 +139,12 @@ class SyncSeriesCommand extends Command
     {
 
         //Each episode has an unique ID in TVMaze, this may be a good hint for us
-        //First, let's fetch all series with keys as external IDS, we'll loop through them
+        //First, let's fetch all TV shows with keys as external IDS, we'll loop through them
         $currentSeries = Serie::all()->keyBy('external_id')->toArray();
 
         //FirstOrNew is overkill, "eager load Series + contains($episode_id)" cannot check by external_id column, so pre-fetching is best approach
-        $currentEpisodes = Episode::all()->lists('title', 'external_id')->toArray();
+        //lists() method is deprecated, so we use pluck() instead.
+        $currentEpisodes = Episode::all()->pluck('title', 'external_id')->toArray();
 
         foreach ($currentSeries as $external_id => $serie) {
 
@@ -163,6 +164,7 @@ class SyncSeriesCommand extends Command
             foreach ($episodes as $data) {
 
                 if (!isset($currentEpisodes[$data['id']])) {
+
                     $episode = new Episode();
 
                     $episode->external_id = $data['id'];
@@ -193,6 +195,7 @@ class SyncSeriesCommand extends Command
                     $episode->airdate = $data['airdate'] . ' ' . $data['airtime'];
 
                     $episode->save();
+
                 }
 
             }

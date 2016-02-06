@@ -42,9 +42,9 @@ class AddSeriesToWatchlistGroupCommand extends Command
             ->setDescription('Adds a show to watchlist group')
             ->setDefinition(
                 new InputDefinition([
-                    new InputOption('group', 'g', InputOption::VALUE_REQUIRED),
-                    new InputOption('show', 's', InputOption::VALUE_OPTIONAL),
-                    new InputOption('link', 'l', InputOption::VALUE_OPTIONAL),
+                    new InputOption('group', 'g', InputOption::VALUE_REQUIRED, 'Title of the Watchlist Group'),
+                    new InputOption('show', 's', InputOption::VALUE_OPTIONAL, 'TVMaze ID of the show'),
+                    new InputOption('link', 'l', InputOption::VALUE_OPTIONAL, 'TVMaze link of the show'),
                 ])
             );
     }
@@ -55,7 +55,6 @@ class AddSeriesToWatchlistGroupCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-
         $group = $input->getOption('group');
         $show = $input->getOption('show');
         $link = $input->getOption('link');
