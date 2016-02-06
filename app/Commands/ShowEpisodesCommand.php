@@ -15,10 +15,8 @@
 namespace App\Commands;
 
 use Symfony\Component\Console\Command\Command;
-//use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use Symfony\Component\Console\Helper\Table;
@@ -39,12 +37,12 @@ class ShowEpisodesCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('show:episodes')
+            ->setName('list')
             ->setDescription('Show the episodes list of provided TVMaze show IDs')
-            ->setDefinition(
-                new InputDefinition([
-                    new InputOption('group', 'g', InputOption::VALUE_REQUIRED)
-                ])
+            ->addArgument(
+                'group',
+                InputArgument::REQUIRED,
+                'Name of the Watchlist Group'
             );
     }
 
@@ -55,9 +53,9 @@ class ShowEpisodesCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $group = $input->getOption('group');
+        $group = $input->getArgument('group');
         if (!$group) {
-            $output->writeln('You have to provide the group name');
+            $output->writeln('<fg=red>Error: You have to provide the group name</>');
             return;
         }
 

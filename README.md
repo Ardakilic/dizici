@@ -181,13 +181,13 @@ php dizici sync:series
 Then run this command:
 
 ```shell
-php dizici show:episodes -g "Stargate List"
+php dizici list Stargate
 ```
 
-or
+or with quotes if it contains multiple words:
 
 ```shell
-php dizici show:episodes --group="Stargate List"
+php dizici list "Stargate List"
 ```
 
 You'll get an output like this:
@@ -197,10 +197,10 @@ You'll get an output like this:
 If you want to export this, you can do this the shell way:
 
 ```shell
-php dizici show:episodes -g "Stargate List" > output.txt
+php dizici list "Stargate List" > output.txt
 ```
 
-and print output.txt etc.
+and print `output.txt` etc.
 
 ##Screenshot(s)
 
