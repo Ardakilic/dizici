@@ -25,6 +25,7 @@ use Illuminate\Database\Schema\Blueprint;
 
 use App\Models\Episode;
 use App\Models\Serie;
+use App\Models\Watchlist;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
@@ -50,7 +51,7 @@ class SyncSeriesCommand extends Command
     }
 
     /**
-     *
+     * Configuration method for the command
      */
     protected function configure()
     {
@@ -95,8 +96,8 @@ class SyncSeriesCommand extends Command
     {
 
 
-        $allSeries = $this->config['series'];
-        $currentSeries = Serie::all()->lists('external_id')->toArray();
+        $allSeries = Watchlist::all()->pluck('tvmaze_id')->toArray();
+        $currentSeries = Serie::all()->pluck('external_id')->toArray();
         $seriesToCreate = array_values(array_diff($allSeries, $currentSeries));
 
         //Loop through all series to create
@@ -127,7 +128,7 @@ class SyncSeriesCommand extends Command
         }
     }
 
-    //
+
     /**
      * Creates new episodes
      *

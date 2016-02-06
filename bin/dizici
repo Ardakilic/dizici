@@ -20,6 +20,8 @@ use Symfony\Component\Console\Application;
 use App\Commands\MigrateCommand;
 use App\Commands\SyncSeriesCommand;
 use App\Commands\ShowEpisodesCommand;
+use App\Commands\CreateWatchlistGroupCommand;
+use App\Commands\AddSeriesToWatchlistGroupCommand;
 
 $application = new Application('Dizici', APP_VERSION);
 
@@ -27,6 +29,8 @@ $application = new Application('Dizici', APP_VERSION);
 $application->add(new MigrateCommand());
 $application->add(new SyncSeriesCommand());
 $application->add(new ShowEpisodesCommand());
+$application->add(new CreateWatchlistGroupCommand());
+$application->add(new AddSeriesToWatchlistGroupCommand());
 
 //Run it
 $application->run();

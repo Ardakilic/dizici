@@ -15,14 +15,16 @@
 namespace App\Commands;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
+//use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-//use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Output\OutputInterface;
 
 use Symfony\Component\Console\Helper\Table;
 
 use App\Models\Episode;
+use App\Models\WatchlistGroup;
 
 /**
  * Class ShowEpisodesCommand
@@ -39,27 +41,34 @@ class ShowEpisodesCommand extends Command
         $this
             ->setName('show:episodes')
             ->setDescription('Show the episodes list of provided TVMaze show IDs')
-            ->addArgument(
-                'shows',
-                InputArgument::IS_ARRAY,
-                'Which shows do you want to get episodes list of?'
+            ->setDefinition(
+                new InputDefinition([
+                    new InputOption('group', 'g', InputOption::VALUE_REQUIRED)
+                ])
             );
     }
 
     /**
      * @param InputInterface $input
      * @param OutputInterface $output
+     * @return string Output to console
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $shows = $input->getArgument('shows');
-        if (!$shows) {
-            $output->writeln('You have to provide at least one TVMaze show ID');
+        $group = $input->getOption('group');
+        if (!$group) {
+            $output->writeln('You have to provide the group name');
             return;
         }
 
-        //Let's convert them to integer:
-        $shows = array_map('intval', $shows);
+        $watchListGroup = WatchlistGroup::with('watchlists')->where('title', $group)->first();
+        if (!$watchListGroup) {
+            $output->writeln('<fg=red>Error: No watchlist group found</>');
+            return;
+        }
+
+        //Let's get the ID of of the shows
+        $shows = $watchListGroup->watchlists->pluck('tvmaze_id')->toArray();
 
         //Now let's fetch episodes:
         $episodes = Episode::join('series', 'series.id', '=', 'episodes.serie_id_internal', 'inner')

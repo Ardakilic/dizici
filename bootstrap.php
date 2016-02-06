@@ -14,7 +14,7 @@
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-define('APP_VERSION', '1.0.1');
+define('APP_VERSION', '1.1.0');
 
 use Symfony\Component\Yaml\Yaml;
 

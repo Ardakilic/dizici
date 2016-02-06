@@ -14,7 +14,7 @@ Dizici (dee-zee-ghee) is a simple PHP Cli tool that syncs series and episodes fr
 
 Let me give you a brief example:
 
-I'm a [Stargate](http://stargate.mgm.com/) fan, and it contains 3 TV showsand several movies. The "proper" watch order is a mess. You have to watch some episodes of one TV show, then switch to another to prevent spoiler and know all the details in order. There are even some [Reddit threads](https://www.reddit.com/comments/dllw8/the_official_rstargate_what_order_do_i_watch/) which discuss in which order the serie should be watched.
+I'm a [Stargate](http://stargate.mgm.com/) fan, and it contains 3 TV shows and several movies. The "proper" watch order is a mess. You have to watch some episodes of one TV show, then switch to another to prevent spoiler and know all the details in order. There are even some [Reddit threads](https://www.reddit.com/comments/dllw8/the_official_rstargate_what_order_do_i_watch/) which discuss in which order the TV shows should be watched.
 
 Now I'm watching [Doctor Who](http://www.bbc.co.uk/programmes/b006q2x0), and I'm reminded that it's also conncted with [Torchwood](http://www.bbc.co.uk/programmes/b006m8ln), and the same issue is in this show, too.
 
@@ -45,7 +45,7 @@ This simple PHP cli tool aims to be a solution for this issue.
 
 ##Requirements
 
-* PHP 5.5.9 or newer
+* PHP 5.6.4 or newer
 * [Composer](https://getcomposer.org)
 * A database engine such as MySQL, Postgres, SQLite or SQL Server (which is supported by [illuminate/database](https://github.com/illuminate/database))
 * Cron if you'd like to sync episodes automatically
@@ -53,7 +53,7 @@ This simple PHP cli tool aims to be a solution for this issue.
 
 ##Installation (From Dist)
 
-There are couple of ways to get the dist .phar file
+There are couple of ways to get the dist `.phar` file
 * The easiest way is to get it from [NPM](https://www.npmjs.com/package/dizici):
 ```shell
 npm install -g dizici
@@ -81,11 +81,49 @@ cd dizici
 composer install
 ```
 * After first installation, a hidden folder called `.dizici` will be created inside your home folder. This folder is where the application stores configuration and database (if set as SQLite). We'll refer to it as `$HOME/.dizici/` in this readme file.
-* Fill the credentials in `config.yml` accordingly. Example connection credentials are stored in [this file in Laravel](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php). E.g: If you want to use MySQL instead, fill the connection key with [these keys and according values](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php#L56-L64).
+* Fill the credentials in `config.yml` accordingly. Example connection credentials are stored in [this file in Laravel](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php#L47). E.g: If you want to use MySQL instead, fill the connection key with [these keys and according values](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php#L56-L64).
 * Create the tables on your database:
 ```shell
 php bin/dizici migrate:tables
 ```
+* Now you need to create a "watchlist group":
+
+>  "watchlist group" is a bucket of TV shows, a bucket can be called "Stargate Bundle", "Marvel Universe" (or anything you'd like), and it  contains TV shows such as "Stargate SG-1", "Stargate Atlantis", and "Stargate Universe". You can think it like an individual list or a shows group.
+
+Simply run this command:
+
+```shell
+php bin/dizici create:group -t "Stargate List"
+```
+or alternatively:
+```shell
+php bin/dizici create:group --title="Stargate List"
+```
+* Now you need to add TV shows to a watchlist, you can do this with either show ID, or the link directly:
+
+```shell
+php bin/dizici add:show -g "Stargate List" -s 204
+```
+or this:
+```shell
+php bin/dizici add:show --group="Stargate List" --show=204
+```
+`group` is the title of our Watchlist Group.
+`show` is the ID of the show ID of TVMaze. You can get it from the URL.
+e.g: `http://www.tvmaze.com/shows/204/stargate-sg-1`
+
+You can also add a show by URL directly, Dizici will take care of the rest.
+
+```shell
+php bin/dizici add:show -g "Stargate List" -l http://www.tvmaze.com/shows/204/stargate-sg-1
+```
+or
+```shell
+php bin/dizici add:show --group="Stargate List" --link=http://www.tvmaze.com/shows/204/stargate-sg-1
+```
+
+Repeat this step for each TV show you'd like to add to a Watchlist Group.
+
 * Now sync all the series and episodes, some example TV shows are already added in configuration file:
 ```shell
 php bin/dizici sync:series
@@ -130,16 +168,6 @@ sudo mv dizici.phar /usr/local/bin/dizici
 ```
 * Finally, you can run `dizici` from anywhere in your terminal.
 
-##Adding new TV Shows
-
-This is quite easy, I'll try to explain in some simple steps:
-
-* Navigate to [http://www.tvmaze.com/](http://www.tvmaze.com/), and search for a TV show
-* Search for a TV show, let's search Star Trek, there are various results, I'll post some of them here:
-![](https://i.imgur.com/hLt9dtQ.png)
-* The links are like these: http://www.tvmaze.com/shows/ **490** /star-trek, http://www.tvmaze.com/shows/ **491** /star-trek-the-next-generation http://www.tvmaze.com/shows/ **492** /star-trek-voyager,
-* As you've realized, we need the TVMaze IDs of these shows, which are **490**, **491** and **492** (and so on).
-* Just add these numbers in `series` key in `config.yml` which can be found under `$HOME/.dizici/` directory.
 
 ##Listing TV shows as unified
 There's a cli way to show and export this feature.
@@ -147,13 +175,19 @@ There's a cli way to show and export this feature.
 First, make sure you're synced,
 
 ```shell
-php bin/dizici sync:series
+php dizici sync:series
 ```
 
 Then run this command:
 
 ```shell
-php bin/dizici show:episodes TVMazeShowID1 TVMazeShowID2..
+php dizici show:episodes -g "Stargate List"
+```
+
+or
+
+```shell
+php dizici show:episodes --group="Stargate List"
 ```
 
 You'll get an output like this:
@@ -163,22 +197,10 @@ You'll get an output like this:
 If you want to export this, you can do this the shell way:
 
 ```shell
-php dizici show:episodes TVMazeShowID1 TVMazeShowID2 > output.txt
+php dizici show:episodes -g "Stargate List" > output.txt
 ```
 
 and print output.txt etc.
-
-Additionally, you can always run raw SQL queries, Not all the fields (such as image etc.) are shown in the table yet, and this may be one of the ways to implement it.
-
-Example query that lists and provides a watch order for Doctor Who and Torchwood in MySQL (and derivatives):
-
-```sql
-SELECT * FROM `episodes` WHERE serie_id_external IN (210, 659) ORDER BY airdate ASC
-```
-
-(Again: 210 and 659 are TVMaze IDs which I've described how to get them earlier)
-
-You will get a result like [this image](https://imgur.com/nW2rn5Z). This will include a unified view of multiple TV shows including special editions, episode names and numbers, summaries, cover photos, episode URLs and air dates (in short, whatever resource TVMaze provides and the application saves).
 
 ##Screenshot(s)
 
@@ -189,15 +211,19 @@ This is a sample screenshot from console when you run the sync command:
 Many of the other images are provided earlier of this readme.
 
 ##TODOs
-* Grouping feature to bundle multiple TV shows
-* Storing all TVMaze IDs in database instead of config file
+* ~~ Grouping feature to bundle multiple TV shows~~
+* ~~Storing all TVMaze IDs in database instead of config file~~
 * ~~[Tables](http://symfony.com/doc/current/components/console/helpers/table.html) in console output~~
 * Provide output such as HTML, tsv etc. in addition to text
 * New columns for marking such as "watched", "collected" etc.
 * Please feel free to provide issues and pull requests. I'll gladly consider them.
 
-
 ##Version History
+
+###Version 1.1.0
+
+* Watchlist groups: You can now create and name custom watch lists, and create lists like "Shows for Summer", "Marvel Universe" etc, add TV shows to these lists and and call the episodes lists by these names. This allows you both to call the command easier, and manage better. This resulted the deletion of `series` key in `config.yml`.
+* New commands to create watchlist groups and add TV shows to these groups.
 
 ###Version 1.0.1
 
