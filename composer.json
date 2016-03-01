@@ -11,12 +11,10 @@
   ],
   "homepage": "https://arda.pw/",
   "license": "MIT",
-  "authors": [
-    {
-      "name": "Arda Kilicdagi",
-      "email": "arda@kilicdagi.com"
-    }
-  ],
+  "authors": [{
+    "name": "Arda Kilicdagi",
+    "email": "arda@kilicdagi.com"
+  }],
   "require": {
     "php": ">=5.5.4",
     "guzzlehttp/guzzle": "^6.1",

@@ -2,12 +2,13 @@
 
 /**
  * Dizici
- * https://github.com/Ardakilic/dizici
+ * https://github.com/Ardakilic/dizici.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * @link        https://github.com/Ardakilic/dizici
+ *
  * @copyright   2016 Arda Kilicdagi. (https://arda.pw/)
  * @license     http://opensource.org/licenses/MIT - MIT License
  */
@@ -19,20 +20,14 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 //use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-
-use Illuminate\Database\Capsule\Manager as Capsule;
-use Illuminate\Database\Schema\Blueprint;
-
 use App\Models\Episode;
 use App\Models\Serie;
 use App\Models\Watchlist;
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 
 /**
- * Class SyncSeriesCommand
- * @package App\Commands
+ * Class SyncSeriesCommand.
  */
 class SyncSeriesCommand extends Command
 {
@@ -40,7 +35,6 @@ class SyncSeriesCommand extends Command
     private $config;
     private $client;
     const separator = '-----------------------------------------------------------------';
-
 
     public function __construct()
     {
@@ -51,7 +45,7 @@ class SyncSeriesCommand extends Command
     }
 
     /**
-     * Configuration method for the command
+     * Configuration method for the command.
      */
     protected function configure()
     {
@@ -61,7 +55,7 @@ class SyncSeriesCommand extends Command
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -72,7 +66,7 @@ class SyncSeriesCommand extends Command
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     private function syncSeriesAndEpisodes(InputInterface $input, OutputInterface $output)
@@ -85,11 +79,10 @@ class SyncSeriesCommand extends Command
         $this->syncEpisodes($input, $output);
     }
 
-
     /**
-     * Creates the new series
+     * Creates the new series.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     private function syncSeries(InputInterface $input, OutputInterface $output)
@@ -103,18 +96,18 @@ class SyncSeriesCommand extends Command
         //Loop through all series to create
         foreach ($seriesToCreate as $serieID) {
             //First let's fetch from TVMaze:
-            $request = new Request('GET', 'http://api.tvmaze.com/shows/' . $serieID);
+            $request = new Request('GET', 'http://api.tvmaze.com/shows/'.$serieID);
             $response = $this->client->send($request);
             if ($response->getStatusCode() != 200) {
-                $output->writeln('An error has been occurred while fetching series with ID ' . $serieID);
-                $output->writeln('Error code: ' . $response->getStatusCode());
+                $output->writeln('An error has been occurred while fetching series with ID '.$serieID);
+                $output->writeln('Error code: '.$response->getStatusCode());
                 $output->writeln(self::separator);
                 continue;
             }
             $data = json_decode($response->getBody()->getContents(), true);
 
             //Now let's create the TV show!
-            $serie = new Serie;
+            $serie = new Serie();
             $serie->title = $data['name'];
             $serie->external_id = $data['id'];
             if (isset($data['image']['original'])) {
@@ -123,16 +116,15 @@ class SyncSeriesCommand extends Command
             $serie->premiered = date('Y-m-d H:i:s', strtotime($data['premiered']));
             $serie->save();
 
-            $output->writeln($serie->title . ' created successfully!');
+            $output->writeln($serie->title.' created successfully!');
             $output->writeln(self::separator);
         }
     }
 
-
     /**
-     * Creates new episodes
+     * Creates new episodes.
      *
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     private function syncEpisodes(InputInterface $input, OutputInterface $output)
@@ -147,14 +139,13 @@ class SyncSeriesCommand extends Command
         $currentEpisodes = Episode::all()->pluck('title', 'external_id')->toArray();
 
         foreach ($currentSeries as $external_id => $serie) {
+            $output->writeln('Now syncing: '.$serie['title']);
 
-            $output->writeln('Now syncing: ' . $serie['title']);
-
-            $request = new Request('GET', 'http://api.tvmaze.com/shows/' . $external_id . '/episodes?specials=1');
+            $request = new Request('GET', 'http://api.tvmaze.com/shows/'.$external_id.'/episodes?specials=1');
             $response = $this->client->send($request);
             if ($response->getStatusCode() != 200) {
-                $output->writeln('An error has been occurred while fetching series with external_id ' . $external_id);
-                $output->writeln('Error code: ' . $response->getStatusCode());
+                $output->writeln('An error has been occurred while fetching series with external_id '.$external_id);
+                $output->writeln('Error code: '.$response->getStatusCode());
                 $output->writeln(self::separator);
                 continue;
             }
@@ -162,9 +153,7 @@ class SyncSeriesCommand extends Command
 
             //Loop through all episodes:
             foreach ($episodes as $data) {
-
                 if (!isset($currentEpisodes[$data['id']])) {
-
                     $episode = new Episode();
 
                     $episode->external_id = $data['id'];
@@ -192,18 +181,14 @@ class SyncSeriesCommand extends Command
                         $episode->image = $data['image']['original'];
                     }
 
-                    $episode->airdate = $data['airdate'] . ' ' . $data['airtime'];
+                    $episode->airdate = $data['airdate'].' '.$data['airtime'];
 
                     $episode->save();
-
                 }
-
             }
 
-
-            $output->writeln($serie['title'] . ' synced successfully!');
+            $output->writeln($serie['title'].' synced successfully!');
             $output->writeln(self::separator);
         }
-
     }
 }

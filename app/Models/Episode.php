@@ -2,12 +2,13 @@
 
 /**
  * Dizici
- * https://github.com/Ardakilic/dizici
+ * https://github.com/Ardakilic/dizici.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * @link        https://github.com/Ardakilic/dizici
+ *
  * @copyright   2016 Arda Kilicdagi. (https://arda.pw/)
  * @license     http://opensource.org/licenses/MIT - MIT License
  */
@@ -17,12 +18,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Episode
- * @package App\Models
+ * Class Episode.
  */
 class Episode extends Model
 {
-
     /**
      * @var bool
      */
@@ -46,5 +45,4 @@ class Episode extends Model
     {
         return $this->belongsTo('\App\Models\Serie', 'serie_id_internal');
     }
-
 }

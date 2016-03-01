@@ -2,12 +2,13 @@
 
 /**
  * Dizici
- * https://github.com/Ardakilic/dizici
+ * https://github.com/Ardakilic/dizici.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * @link        https://github.com/Ardakilic/dizici
+ *
  * @copyright   2016 Arda Kilicdagi. (https://arda.pw/)
  * @license     http://opensource.org/licenses/MIT - MIT License
  */
@@ -19,18 +20,16 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 //use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Schema\Blueprint;
 
 /**
- * Class MigrateCommand
- * @package App\Commands
+ * Class MigrateCommand.
  */
 class MigrateCommand extends Command
 {
     /**
-     * Configuration method
+     * Configuration method.
      */
     protected function configure()
     {
@@ -40,7 +39,7 @@ class MigrateCommand extends Command
     }
 
     /**
-     * @param InputInterface $input
+     * @param InputInterface  $input
      * @param OutputInterface $output
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -52,9 +51,8 @@ class MigrateCommand extends Command
         $output->writeln('Done! Database tables installed successfully!');
     }
 
-
     /**
-     * Runs the schema builder commands
+     * Runs the schema builder commands.
      */
     private function migrateSchema()
     {
@@ -65,7 +63,7 @@ class MigrateCommand extends Command
     }
 
     /**
-     * Creates the series table
+     * Creates the series table.
      */
     private function createSeriesTable()
     {
@@ -84,7 +82,7 @@ class MigrateCommand extends Command
     }
 
     /**
-     * Creates the episodes table
+     * Creates the episodes table.
      */
     private function createEpisodesTable()
     {
@@ -113,7 +111,7 @@ class MigrateCommand extends Command
     }
 
     /**
-     * Creates the watchlist groups table
+     * Creates the watchlist groups table.
      */
     private function createWatchlistGroupsTable()
     {
@@ -135,5 +133,4 @@ class MigrateCommand extends Command
 
         });
     }
-
 }

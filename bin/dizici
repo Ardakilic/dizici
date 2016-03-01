@@ -3,20 +3,19 @@
 
 /**
  * Dizici
- * https://github.com/Ardakilic/dizici
+ * https://github.com/Ardakilic/dizici.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
  * @link        https://github.com/Ardakilic/dizici
+ *
  * @copyright   2016 Arda Kilicdagi. (https://arda.pw/)
  * @license     http://opensource.org/licenses/MIT - MIT License
  */
-
-require_once __DIR__ . '/../bootstrap.php';
+require_once __DIR__.'/../bootstrap.php';
 
 use Symfony\Component\Console\Application;
-
 use App\Commands\MigrateCommand;
 use App\Commands\SyncSeriesCommand;
 use App\Commands\ShowEpisodesCommand;
