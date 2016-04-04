@@ -52,10 +52,8 @@ This simple PHP cli tool aims to be a solution for this issue.
 
 ## Installation (From Dist)
 There are couple of ways to get the dist `.phar` file
-- The easiest way is to get it from [NPM](https://www.npmjs.com/package/dizici):
-- npm install -g dizici
 
-or [Composer](https://getcomposer.org):
+The easiest way is to install from [Composer](https://getcomposer.org):
 
 ```shell
 composer global require ardakilic/dizici
@@ -67,14 +65,20 @@ And it's installed.
 
 ## Installation (From Source)
 - Clone the repository:
-- git clone [https://github.com/Ardakilic/dizici.git](https://github.com/Ardakilic/dizici.git)
+```shell
+git clone https://github.com/Ardakilic/dizici.git
+```
 - Install dependencies:
-- cd dizici
+```shell
+cd dizici
 composer install
+```
 - After first installation, a hidden folder called `.dizici` will be created inside your home folder. This folder is where the application stores configuration and database (if set as SQLite). We'll refer to it as `$HOME/.dizici/` in this readme file.
 - Fill the credentials in `config.yml` accordingly. Example connection credentials are stored in [this file in Laravel](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php#L47). E.g: If you want to use MySQL instead, fill the connection key with [these keys and according values](https://github.com/laravel/laravel/blob/becd774e049fb451aca0c7dc4f6d86d7bc12256c/config/database.php#L56-L64).
 - Create the tables on your database:
-- dizici migrate:tables
+```shell
+dizici migrate:tables
+```
 - Now you need to create a "watchlist group":
 
 >  "watchlist group" is a bucket of TV shows, a bucket can be called "Stargate Bundle", "Marvel Universe" (or anything you'd like), and it  contains TV shows such as "Stargate SG-1", "Stargate Atlantis", and "Stargate Universe". You can think it like an individual list or a shows group.
@@ -124,7 +128,7 @@ Repeat this step for each TV show you'd like to add to a Watchlist Group.
 - Enjoy! :smile:
 
 ## Building the Binary
-There should already be a `dist/dizici.phar` file available in the repository, but for some purposes, you may want to create the .phar file on your own.
+There should already be a `dist/dizici.phar` file available in the repository, but for some purposes, you may want to create the `.phar` file on your own.
 
 With a very little and simple steps you can create `dizici.phar` file yourself.
 - [Download and/or install the Box2](https://github.com/box-project/box2#as-a-phar-recommended)
@@ -134,13 +138,8 @@ With a very little and simple steps you can create `dizici.phar` file yourself.
 - You'll have a `dist/dizici.phar` created upon seconds.
 
 ## Install Dizici Globally
-### You can do this easily with NPM:
 
-```shell
-npm install -g dizici
-```
-
-or via Composer:
+**You can do this easily with Composer:**
 
 ```shell
 composer global require ardakilic/dizici
@@ -151,7 +150,10 @@ And it's installed :)
 ### You can also download the .phar arcive and do this manually
 - First, either download the dist version or [build the binary](#building-the-binary). You can download or build yourself.
 - Move `dizici.phar` to one of your ENV paths. Example:
-- sudo mv dizici.phar /usr/local/bin/dizici
+```shell
+chmod +x dizici.phar
+mv dizici.phar /usr/local/bin/dizici
+```
 - Finally, you can run `dizici` from anywhere in your terminal.
 
 ## Listing TV shows as unified
