@@ -20,8 +20,8 @@
   "require": {
     "guzzlehttp/guzzle": "6.5.2",
     "illuminate/database": "~7.1",
-    "symfony/console": "5.0.5",
-    "symfony/yaml": "5.0.5"
+    "symfony/console": "5.0.6",
+    "symfony/yaml": "5.0.6"
   },
   "autoload": {
     "psr-4": {
