@@ -18,7 +18,7 @@
     "email": "arda@kilicdagi.com"
   }],
   "require": {
-    "guzzlehttp/guzzle": "~6.5",
+    "guzzlehttp/guzzle": "~7.0",
     "illuminate/database": "~7.1",
     "symfony/console": "~5.0",
     "symfony/yaml": "~5.0"
