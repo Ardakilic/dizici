@@ -19,7 +19,7 @@
   }],
   "require": {
     "guzzlehttp/guzzle": "~7.0",
-    "illuminate/database": "~8.0",
+    "illuminate/database": "~9.0",
     "symfony/console": "~5.0",
     "symfony/yaml": "~5.0"
   },
